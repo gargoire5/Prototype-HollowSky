@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     public float dashForce = 10f;
 
+    float lastDir;
+
     void Start()
     {
         MoveAction.action.Enable();
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         if(DashAction.action.IsPressed() && isDash)
         {
-            //Dash();
+            Dash();
         }
 
         timeCooldown += Time.deltaTime;
@@ -57,17 +59,20 @@ public class PlayerController : MonoBehaviour
 
     private void Dash()
     {
-        if(inputDirection.x > 0)
+        if(lastDir > 0)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.right * dashForce, ForceMode.Impulse);
             isDash = false;
-        } else if(inputDirection.x < 0)
+            Debug.Log("dash D");
+        } else if (lastDir < 0)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.left * dashForce, ForceMode.Impulse);
             isDash = false;
+            Debug.Log("dash G");
         }
+        Debug.Log("dash");
     }
     
 
@@ -97,19 +102,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(inputDirection != Vector2.zero)
-        {
-            MovePlayer();
-        }
+         MovePlayer();
     }
 
 
     private void MovePlayer()
     {
-        Vector3 move = transform.forward * inputDirection.x + transform.right * inputDirection.y;
+        Vector3 move = transform.forward * inputDirection.x;
         Vector3 velocity = move * speed;
         Vector3 rbVelocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
         rb.velocity = rbVelocity;
+        if(inputDirection.x != 0 )
+        {
+            lastDir = inputDirection.x;
+        }
     }
     
 }
