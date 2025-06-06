@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 234081912}
   - component: {fileID: 234081911}
   - component: {fileID: 234081910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,11 +419,11 @@ Transform:
   m_GameObject: {fileID: 1397706175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 10, y: 4.86, z: 7.78}
+  m_LocalPosition: {x: 10, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2075481663}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1681391942
 GameObject:
@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 2075481660}
   - component: {fileID: 2075481659}
   - component: {fileID: 2075481658}
+  - component: {fileID: 2075481664}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -801,10 +802,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveAction: {fileID: -3727479848471759971, guid: c521b01b4dd77da45a5ee117e33919f1, type: 3}
-  JumpAction: {fileID: -3312266677225977421, guid: c521b01b4dd77da45a5ee117e33919f1, type: 3}
+  AttackAction: {fileID: -3312266677225977421, guid: c521b01b4dd77da45a5ee117e33919f1, type: 3}
   speed: 5
   rb: {fileID: 2075481659}
   playerCamera: {fileID: 1397706178}
+  attackRange: 1
+  bounceForce: 10
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!54 &2075481659
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -830,7 +836,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 2
+  m_Constraints: 114
   m_CollisionDetection: 0
 --- !u!65 &2075481660
 BoxCollider:
@@ -917,14 +923,44 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.14, z: -7.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1397706178}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075481664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075481657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: c521b01b4dd77da45a5ee117e33919f1, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1681391944}
   - {fileID: 1829026548}
+  - {fileID: 1397706178}
   - {fileID: 2075481663}
