@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     float lastDir;
 
+    float timeDash = 0.5f;
+    float timeD;
+
     void Start()
     {
         MoveAction.action.Enable();
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour
         }
 
         timeCooldown += Time.deltaTime;
-        
+        timeD += Time.deltaTime;
     }
 
     private void Dash()
@@ -63,16 +66,17 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.forward * dashForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 3, ForceMode.Impulse);
+            timeD = 0;
             isDash = false;
-            Debug.Log("dash D");
         } else if (lastDir < 0)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.back * dashForce, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * 3, ForceMode.Impulse);
             isDash = false;
-            Debug.Log("dash G");
+            timeD = 0;
         }
-        Debug.Log("dash");
     }
     
 
@@ -102,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(inputDirection.x != 0)
+        if(timeD >= timeDash)
         {
             MovePlayer();
         }
