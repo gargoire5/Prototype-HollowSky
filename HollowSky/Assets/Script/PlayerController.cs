@@ -35,11 +35,15 @@ public class PlayerController : MonoBehaviour
     float timeDash = 0.5f;
     float timeD;
 
+    public float maxHeals = 10;
+    public float heals;
+
     void Start()
     {
         MoveAction.action.Enable();
         AttackAction.action.Enable();
         DashAction.action.Enable();
+        heals = maxHeals;
     }
 
     void Update()
@@ -88,13 +92,14 @@ public class PlayerController : MonoBehaviour
             {
                 if (AtkZone.objects[i].layer == 7)
                 {
-                    AtkZone.objects[i].GetComponent<Ennemy>().Dead();
+                    if (GetComponent<EnnemyMother>())
+                    {
+                        AtkZone.objects[i].GetComponent<EnnemyMother>().takeDamage(1);
+                    } else
+                    {
+                        AtkZone.objects[i].GetComponentInParent<EnnemyMother>().takeDamage(1);
+                    }
                     AtkZone.objects.Remove(AtkZone.objects[i]);
-                    Debug.Log("destroy");
-                }
-                else
-                {
-                    Debug.Log("no destroy");                    
                 }
             }
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
@@ -120,6 +125,15 @@ public class PlayerController : MonoBehaviour
         Vector3 rbVelocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
         rb.velocity = rbVelocity;
         lastDir = inputDirection.x;
+    }
+    
+    public void TakeDamage(float damage)
+    {
+        heals -= damage;
+        if(heals <= 0)
+        {
+            //dead
+        }
     }
     
 }
