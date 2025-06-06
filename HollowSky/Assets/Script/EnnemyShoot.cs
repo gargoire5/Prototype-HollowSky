@@ -47,5 +47,9 @@ public class EnnemyShoot : EnnemyMother
         prefab.GetComponent<Ball>().dir = dir;
         Destroy(prefab, 3);
     }
+    public override void takeDamage(float damage)
+    {
+        base.takeDamage(damage);
+    }
 
 }
