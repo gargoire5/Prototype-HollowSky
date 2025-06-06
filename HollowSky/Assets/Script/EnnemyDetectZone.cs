@@ -51,7 +51,6 @@ public class EnnemyDetectZone : EnnemyMother
 
     public override void Dead()
     {
-        isDead = true;
         dir = Vector3.zero;
         EnnemyBody.transform.localPosition = Vector3.zero;
         EnnemyBody.SetActive(false);
@@ -62,10 +61,10 @@ public class EnnemyDetectZone : EnnemyMother
 
     public override void Respawn()
     {
-        isDead = false;
         EnnemyBody.SetActive(true);
         gameObject.GetComponent<SphereCollider>().enabled = true;
         gameObject.GetComponent<MeshRenderer>().enabled = true;
+        base.Respawn();
     }
 
     public override void takeDamage(float damage)
