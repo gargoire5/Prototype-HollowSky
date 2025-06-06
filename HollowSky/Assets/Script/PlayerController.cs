@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public InputActionReference MoveAction;
     public InputActionReference AttackAction;
+    public InputActionReference DashAction;
 
     public float speed = 5f;
 
@@ -19,49 +20,87 @@ public class PlayerController : MonoBehaviour
     public float attackRange = 1f;
     public float bounceForce = 10f;
     public LayerMask attackLayer;
-    private bool isAttackingDown = false;   
+
+    public AtkZone AtkZone;
+
+    public float cooldownAtk;
+    private float timeCooldown;
+
+    bool isDash;
+
+    public float dashForce = 10f;
 
     void Start()
     {
         MoveAction.action.Enable();
         AttackAction.action.Enable();
+        DashAction.action.Enable();
     }
 
     void Update()
     {
         inputDirection = MoveAction.action.ReadValue<Vector2>();
 
-        if (AttackAction.action.WasPressedThisFrame())
-        {
-            isAttackingDown = true; 
-        }
-
-        if (isAttackingDown)
+        if (AttackAction.action.IsPressed() && timeCooldown >= cooldownAtk)
         {
             DoDownAttack();
         }
+
+        if(DashAction.action.IsPressed() && isDash)
+        {
+            //Dash();
+        }
+
+        timeCooldown += Time.deltaTime;
+        
     }
+
+    private void Dash()
+    {
+        if(inputDirection.x > 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.right * dashForce, ForceMode.Impulse);
+            isDash = false;
+        } else if(inputDirection.x < 0)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(Vector3.left * dashForce, ForceMode.Impulse);
+            isDash = false;
+        }
+    }
+    
 
     private void DoDownAttack()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, attackRange, attackLayer))
+        if (AtkZone.objects.Count > 0)
         {
-            Debug.Log("Hit");
-            if (hit.collider.CompareTag("Enemy"))
+            for (int i = 0; i < AtkZone.objects.Count; i++)
             {
-                Destroy(hit.collider.gameObject);
+                if (AtkZone.objects[i].layer == 7)
+                {
+                    AtkZone.objects[i].GetComponent<Ennemy>().Dead();
+                    AtkZone.objects.Remove(AtkZone.objects[i]);
+                    Debug.Log("destroy");
+                }
+                else
+                {
+                    Debug.Log("no destroy");                    
+                }
             }
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
-
-            isAttackingDown = false;
+            timeCooldown = 0;
+            isDash = true;
         }
     }
 
     void FixedUpdate()
     {
-        MovePlayer();
+        if(inputDirection != Vector2.zero)
+        {
+            MovePlayer();
+        }
     }
 
 
@@ -72,5 +111,5 @@ public class PlayerController : MonoBehaviour
         Vector3 rbVelocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
         rb.velocity = rbVelocity;
     }
-
+    
 }
