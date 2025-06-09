@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objects: []
+  SpawnPoint: {fileID: 0}
 --- !u!33 &363633165
 MeshFilter:
   m_ObjectHideFlags: 0
