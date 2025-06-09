@@ -6,8 +6,6 @@ public class AtkZone : MonoBehaviour
 {
 
     public List<GameObject> objects;
-    public GameObject SpawnPoint;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,11 +21,6 @@ public class AtkZone : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         objects.Add(other.gameObject);
-
-        if (other.transform.tag == "Enemy")
-        {
-            this.transform.position = SpawnPoint.transform.position;
-        }
     }
 
     private void OnTriggerExit(Collider other)
