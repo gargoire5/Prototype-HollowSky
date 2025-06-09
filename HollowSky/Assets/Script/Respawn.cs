@@ -7,23 +7,22 @@ public class Respawn : MonoBehaviour
 {
     public bool Activated = false;
     public static List<GameObject> CheckPointsList;
-    public static Vector3 SpawnPoint;
 
     public static Vector3 GetActiveCheckPointPosition()
     {
-        SpawnPoint = new Vector3();
+        Vector3 result = new Vector3(0, 1.77f, -21.44f);
         if (CheckPointsList != null)
         {
             foreach (GameObject cp in CheckPointsList)
             {
                 if (cp.GetComponent<Respawn>().Activated)
                 {
-                    SpawnPoint = cp.transform.position;
+                    result = cp.transform.position;
                     break;
                 }
             }
         }
-        return SpawnPoint;
+        return result;
     }
 
     private void ActivateCheckPoint()
@@ -53,6 +52,7 @@ public class Respawn : MonoBehaviour
         if(other.tag == "Player")
         {
             ActivateCheckPoint();
+            GetComponent<Renderer>().material.color = Color.red;
         }
     }
 }
