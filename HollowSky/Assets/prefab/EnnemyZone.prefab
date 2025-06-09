@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1287062741379272895}
   - component: {fileID: 5061860106713651808}
   - component: {fileID: 5642857307090111756}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnnemyZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 5930365134779931421}
   - component: {fileID: 4120919294164964825}
   - component: {fileID: 3461855443910339882}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
