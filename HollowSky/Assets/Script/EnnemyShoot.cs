@@ -11,6 +11,8 @@ public class EnnemyShoot : EnnemyMother
 
     Vector3 dir;
 
+    public bool isZone;
+
     public override void Start()
     {
         base.Start();
@@ -18,7 +20,7 @@ public class EnnemyShoot : EnnemyMother
 
     public override void Update()
     {
-        if(cooldown >= cooldownShoot && !isDead)
+        if(cooldown >= cooldownShoot && !isDead && isZone)
         {
             Shoot();
         }
@@ -45,11 +47,12 @@ public class EnnemyShoot : EnnemyMother
     void Shoot()
     {
         cooldown = 0;
-        dir = FindAnyObjectByType<PlayerController>().gameObject.transform.position - gameObject.transform.position;
+        dir = (FindAnyObjectByType<PlayerController>().gameObject.transform.position - gameObject.transform.position).normalized;
 
         GameObject prefab = Instantiate(prefabBall);
-        prefab.transform.position = this.gameObject.transform.position + dir * 0.2f;
+        prefab.transform.position = this.gameObject.transform.position + dir * 0.6f;
         prefab.GetComponent<Ball>().dir = dir;
+        
         Destroy(prefab, 3);
     }
     public override void takeDamage(float damage)

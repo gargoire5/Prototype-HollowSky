@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1287062741379272895}
   - component: {fileID: 5061860106713651808}
   - component: {fileID: 5642857307090111756}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnnemyZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +49,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -141,7 +141,8 @@ GameObject:
   - component: {fileID: 4039148509933181984}
   - component: {fileID: 5930365134779931421}
   - component: {fileID: 4120919294164964825}
-  m_Layer: 0
+  - component: {fileID: 3461855443910339882}
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +194,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a05e963b79cfbd84ab43edaab9a27fee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -263,3 +264,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3461855443910339882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7486838909695389332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bbfaa84cd34c4469a5646aefc0b71f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

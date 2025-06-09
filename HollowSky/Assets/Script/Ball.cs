@@ -29,7 +29,7 @@ public class Ball : MonoBehaviour
         if(other.gameObject.layer == 8)
         {
             other.GetComponent<PlayerController>().TakeDamage(2);
-            Destroy(this.gameObject);
         }
+            Destroy(this.gameObject);
     }
 }
