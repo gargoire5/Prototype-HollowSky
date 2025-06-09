@@ -2,37 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtkZone : MonoBehaviour
+public class Respawn : MonoBehaviour
 {
-
-    public List<GameObject> objects;
     public GameObject SpawnPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        objects.Add(other.gameObject);
-
-        if (other.transform.tag == "Enemy")
+        if (other.transform.tag == "Respawn")
         {
             this.transform.position = SpawnPoint.transform.position;
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        objects.Remove(other.gameObject);
-    }
-
 }
