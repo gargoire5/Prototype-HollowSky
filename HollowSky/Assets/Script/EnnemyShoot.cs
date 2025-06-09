@@ -18,7 +18,7 @@ public class EnnemyShoot : EnnemyMother
 
     public override void Update()
     {
-        if(cooldown >= cooldownShoot)
+        if(cooldown >= cooldownShoot && !isDead)
         {
             Shoot();
         }
@@ -29,11 +29,16 @@ public class EnnemyShoot : EnnemyMother
 
     public override void Respawn()
     {
+        gameObject.GetComponent<SphereCollider>().enabled = true;
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
+
         base.Respawn();
     }
 
     public override void Dead()
     {
+        gameObject.GetComponent<SphereCollider>().enabled = false;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
         base.Dead();
     }
 
