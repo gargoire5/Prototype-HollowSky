@@ -19,7 +19,7 @@ public class EnnemyMother : MonoBehaviour
 
     public virtual void Update()
     {
-        if (time >= timeRespawn)
+        if (time >= timeRespawn && isDead)
         {
             this.Respawn();
         }
@@ -29,11 +29,13 @@ public class EnnemyMother : MonoBehaviour
     public virtual void Dead()
     {
         time = 0;
+        isDead = true;
     }
 
     public virtual void Respawn()
     {
-
+        heals = maxHeals;
+        isDead = false;
     }
 
     public virtual void takeDamage(float damage)

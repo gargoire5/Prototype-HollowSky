@@ -24,6 +24,7 @@ public class EnnemyBox : EnnemyMother
     {
         gameObject.GetComponent<BoxCollider>().enabled = true;
         gameObject.GetComponent<MeshRenderer>().enabled = true;
+        base.Respawn();
     }
 
     public override void Dead()
