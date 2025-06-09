@@ -11,6 +11,8 @@ public class EnnemyShoot : EnnemyMother
 
     Vector3 dir;
 
+    public bool isZone;
+
     public override void Start()
     {
         base.Start();
@@ -18,7 +20,7 @@ public class EnnemyShoot : EnnemyMother
 
     public override void Update()
     {
-        if(cooldown >= cooldownShoot && !isDead)
+        if(cooldown >= cooldownShoot && !isDead && isZone)
         {
             Shoot();
         }
