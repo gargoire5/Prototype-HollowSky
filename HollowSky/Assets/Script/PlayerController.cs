@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
         AttackAction.action.Enable();
         DashAction.action.Enable();
         heals = maxHeals;
+        Respawn.GetActiveCheckPointPosition();
     }
 
     void Update()
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
             DoDownAttack();
         }
 
-        if(DashAction.action.IsPressed() && isDash)
+        if (DashAction.action.IsPressed() && isDash)
         {
             Dash();
         }
@@ -66,14 +67,15 @@ public class PlayerController : MonoBehaviour
 
     private void Dash()
     {
-        if(lastDir > 0)
+        if (lastDir > 0)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.forward * dashForce, ForceMode.Impulse);
             rb.AddForce(Vector3.up * 3, ForceMode.Impulse);
             timeD = 0;
             isDash = false;
-        } else if (lastDir < 0)
+        }
+        else if (lastDir < 0)
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(Vector3.back * dashForce, ForceMode.Impulse);
@@ -82,7 +84,7 @@ public class PlayerController : MonoBehaviour
             timeD = 0;
         }
     }
-    
+
 
     private void DoDownAttack()
     {
@@ -95,7 +97,8 @@ public class PlayerController : MonoBehaviour
                     if (GetComponent<EnnemyMother>())
                     {
                         AtkZone.objects[i].GetComponent<EnnemyMother>().takeDamage(1);
-                    } else
+                    }
+                    else
                     {
                         AtkZone.objects[i].GetComponentInParent<EnnemyMother>().takeDamage(1);
                     }
@@ -111,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(timeD >= timeDash)
+        if (timeD >= timeDash)
         {
             MovePlayer();
         }
@@ -126,14 +129,22 @@ public class PlayerController : MonoBehaviour
         rb.velocity = rbVelocity;
         lastDir = inputDirection.x;
     }
-    
+
     public void TakeDamage(float damage)
     {
         heals -= damage;
-        if(heals <= 0)
+        if (heals <= 0)
         {
-            //dead
+            rb.transform.position = Respawn.GetActiveCheckPointPosition();
         }
     }
-    
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Respawn")
+        {
+            rb.transform.position = Respawn.GetActiveCheckPointPosition();
+        }
+    }
+
 }
